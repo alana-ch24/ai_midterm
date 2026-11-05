@@ -1,0 +1,44 @@
+name: 部署期中作業
+
+on:
+  push:
+    branches: ["main"]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: 1. 取得程式碼
+        uses: actions/checkout@v4
+
+      - name: 2. 設定 Python 環境
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 3. 安裝 uv 與套件
+        run: |
+          pip install uv
+          uv pip install --system openai pydantic python-dotenv
+
+      - name: 4. 執行 AI 程式
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: python main.py
+
+      - name: 5. 準備網頁檔案
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: 6. 發布到 GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
