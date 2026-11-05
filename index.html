@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>期中作業：客服信件分類</title></head>
+<body style="font-family: sans-serif; line-height: 1.6; max-width: 800px; margin: 20px auto;">
+  <h1>AI 客服信件分類系統</h1>
+  
+  <h3 style="color: blue;">1. 做了什麼</h3>
+  <p>開發一個 Python 程式，能自動讀取客訴信件，並判斷該信件屬於「退貨」、「報修」或「抱怨」。</p>
+  
+  <h3 style="color: blue;">2. 怎麼執行</h3>
+  <p>在終端機使用 uv 工具安裝套件後，輸入指令 <code>python main.py</code> 即可執行。</p>
+  
+  <h3 style="color: blue;">3. 執行結果</h3>
+  <p>程式成功將測試信件（吹風機壞掉）分類為「退貨」，並順利印出 AI 的信心水準。</p>
+  
+  <h3 style="color: blue;">4. AI 使用說明</h3>
+  <p>使用了 OpenAI 的 <code>gpt-4o-mini</code> 模型。為了確保 AI 不會亂回答，使用了 Pydantic 進行「結構化輸出」，強制 AI 只能回傳規定的分類標籤與信心水準。</p>
+</body>
+</html>
