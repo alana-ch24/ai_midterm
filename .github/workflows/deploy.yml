@@ -1,4 +1,4 @@
-name: 部署期中作業
+name: Deploy Midterm Project
 
 on:
   push:
@@ -16,29 +16,29 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: 1. 取得程式碼
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: 2. 設定 Python 環境
+      - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      - name: 3. 安裝 uv 與套件
+      - name: Install uv and dependencies
         run: |
           pip install uv
           uv pip install --system openai pydantic python-dotenv
 
-      - name: 4. 執行 AI 程式
+      - name: Run AI Script
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: python main.py
 
-      - name: 5. 準備網頁檔案
+      - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: '.'
 
-      - name: 6. 發布到 GitHub Pages
+      - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
